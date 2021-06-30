@@ -1,0 +1,26 @@
+version: '3'
+services:
+  dynamodb-template:
+    command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-template
+    ports:
+        - "8000:8000"
+    volumes:
+        - "./.ignore/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+  template:
+    build: .
+    container_name: template
+    depends_on:
+        - dynamodb-template
+    volumes:
+      - .:/code
+      - /code/.ignore/
+    ports:
+      - "5000:5000"
+    environment:
+      - ENVIRONMENT=DEVELOPMENT
+      - AWS_ACCESS_KEY_ID=fake_access
+      - AWS_SECRET_ACCESS_KEY=fake_secret
+    #   - DOPPLER_TOKEN=<your-doppler-token>
