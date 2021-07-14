@@ -8,11 +8,20 @@ class TestGetTodo:
     def setUp(self):
         self.url = '/todos'
         self.todo = TodosDBService().create_todo(TodoCreateSerializer(
-            title='Todo1'
+            title='Todo1',
+            description='Descrição',
+            status='DOING',
+            due_date='15/07/2021',
+            responsible='João'
         ))
 
     def test_get_todos(self, client: TestClient):
         response = client.get(f'{self.url}/{self.todo.id}/')
         assert response.status_code == 200
         response_json = response.json()
+        assert response_json['id'] == self.todo.id
         assert response_json['title'] == 'Todo1'
+        assert response_json['description'] == 'Descrição'
+        assert response_json['status'] == 'DOING'
+        assert response_json['due_date'] == '15/07/2021'
+        assert response_json['responsible'] == 'João'

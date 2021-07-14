@@ -8,13 +8,16 @@ class TestDeleteTodos:
     def setUp(self):
         self.url = '/todos'
         self.db_service = TodosDBService()
-        todo = self.db_service.create_todo(TodoCreateSerializer(
-            title='Todo1'
+        self.todo = self.db_service.create_todo(TodoCreateSerializer(
+            title='Todo1',
+            description='Descrição',
+            status='DOING',
+            due_date='15/07/2021',
+            responsible='João'
         ))
-        self.id = todo.id
 
     def test_get_todos(self, client: TestClient):
         assert len(self.db_service.get_todos()) == 1
-        response = client.delete(f'{self.url}/{self.id}/')
+        response = client.delete(f'{self.url}/{self.todo.id}/')
         assert response.status_code == 204
         assert len(self.db_service.get_todos()) == 0
