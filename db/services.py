@@ -44,6 +44,6 @@ class DBService:
 
     @staticmethod
     def host():
-        return 'http://dynamodb-template:8000' if (
+        return 'http://pubnic-todo-dynamodb:8000' if (
             ENVIRONMENT != EnvironmentSet.PRODUCTION
         ) else get_settings_value(HOST)

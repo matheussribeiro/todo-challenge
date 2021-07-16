@@ -9,9 +9,11 @@ app = FastAPI(
     title='Todo Aplication',
 )
 
+
 @app.get('/')
 def status():
     return dict(status='OK')
+
 
 app.include_router(
     todo_router,

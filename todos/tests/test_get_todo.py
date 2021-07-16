@@ -3,6 +3,7 @@ import pytest
 from fastapi.testclient import TestClient
 from todos.db.services import TodosDBService
 
+
 class TestGetTodo:
     @pytest.fixture(autouse=True)
     def setUp(self):

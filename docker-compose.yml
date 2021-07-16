@@ -1,19 +1,19 @@
 version: '3'
 services:
-  dynamodb-template:
+  pubnic-todo-dynamodb:
     command: "-jar DynamoDBLocal.jar -sharedDb -optimizeDbBeforeStartup -dbPath ./data"
     image: "amazon/dynamodb-local:latest"
-    container_name: dynamodb-template
+    container_name: pubnic-todo-dynamodb
     ports:
         - "8000:8000"
     volumes:
         - "./.ignore/dynamodb:/home/dynamodblocal/data"
     working_dir: /home/dynamodblocal
-  template:
+  pubnic-todo:
     build: .
-    container_name: template
+    container_name: pubnic-todo
     depends_on:
-        - dynamodb-template
+        - pubnic-todo-dynamodb
     volumes:
       - .:/code
       - /code/.ignore/

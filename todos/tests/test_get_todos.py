@@ -1,8 +1,8 @@
-import os
 from todos.serializers import TodoCreateSerializer
 import pytest
 from fastapi.testclient import TestClient
 from todos.db.services import TodosDBService
+
 
 class TestGetTodos:
     @pytest.fixture(autouse=True)
