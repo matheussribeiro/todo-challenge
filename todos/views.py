@@ -7,9 +7,16 @@ from .serializers import TodoSerializer, TodoCreateSerializer
 
 todo_router = APIRouter()
 
+
 @todo_router.get('/')
 async def get_todo():
-    return dict(message = 'GetFunfouTuéBrabo')
+    return TodosDBService().get_todos()
+
+
+@todo_router.post('/',status_code=201)
+async def create_todo(todo: TodoCreateSerializer):
+    return TodosDBService().create_todo(todo)
+
 
 
 '''
