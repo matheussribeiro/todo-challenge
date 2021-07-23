@@ -23,3 +23,6 @@ class TodoCreateSerializer(BaseModel):
     due_date: datetime
     responsible: str
 
+class TodoUpdateSerializer(TodoCreateSerializer):
+    pass
+
